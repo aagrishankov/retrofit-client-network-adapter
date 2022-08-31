@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED")
+
 package ru.grishankov.network.retrofit
 
 /**
@@ -18,7 +20,7 @@ sealed class Response<out Data : Any, out Failure : Any> {
      *
      * @param code response code
      */
-    data class ApiError<Data : Any, Failure : Any>(val data: Data, val code: Int) : Response<Nothing, Failure>()
+    data class ApiError<Failure : Any>(val error: Failure, val code: Int) : Response<Nothing, Failure>()
 
     /**
      * Network response error
@@ -33,4 +35,21 @@ sealed class Response<out Data : Any, out Failure : Any> {
      * @param error instance of throw
      */
     data class UnknownError(val error: Throwable?) : Response<Nothing, Nothing>()
+}
+
+/**
+ * Handling Error
+ */
+inline fun <Data : Any, Failure : Any> Response<Data, Failure>.handling(
+    crossinline onOk: Response.Ok<Data>.() -> Unit = {},
+    crossinline onApiError: Response.ApiError<Failure>.() -> Unit = {},
+    crossinline onNetworkError: Response.NetworkError.() -> Unit = {},
+    crossinline onUnknownError: Response.UnknownError.() -> Unit = {},
+) {
+    when (this) {
+        is Response.Ok -> onOk(this)
+        is Response.ApiError -> onApiError(this)
+        is Response.NetworkError -> onNetworkError(this)
+        is Response.UnknownError -> onUnknownError(this)
+    }
 }

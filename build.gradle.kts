@@ -17,7 +17,7 @@ repositories {
 
 allprojects {
     group = "ru.grishankov.network.retrofit"
-    version = "1.0.0"
+    version = "1.0.1"
 
     repositories {
         mavenLocal()
@@ -52,7 +52,7 @@ publishing {
         create<MavenPublication>("retrofit-network-adapter") {
             artifactId = "retrofit-network-adapter"
             group = "ru.grishankov.network.retrofit"
-            version = "1.0.0"
+            version = "1.0.1"
             pom.packaging = "jar"
             artifact(sourcesJar.get())
         }

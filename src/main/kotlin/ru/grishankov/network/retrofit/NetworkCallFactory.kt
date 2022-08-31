@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED")
+
 package ru.grishankov.network.retrofit
 
 import retrofit2.Call

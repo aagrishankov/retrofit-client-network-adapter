@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED")
+
 package ru.grishankov.network.retrofit
 
 import okhttp3.Request
@@ -25,7 +27,7 @@ class NetworkResponseCall<Data : Any, Failure : Any>(
              *
              *
              * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
-             * Call [Response.isSuccessful] to determine if the response indicates success.
+             * Call Response#isSuccessful to determine if the response indicates success.
              */
             override fun onResponse(call: Call<Data>, response: retrofit2.Response<Data>) {
                 val body = response.body()
